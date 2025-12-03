@@ -85,7 +85,7 @@ export default function App() {
   // Show verification state
   if (verifying) {
     return (
-      <div>
+      <div className="main-content">
         <h1>Authentication</h1>
         <p>Confirming your magic link...</p>
         <p>Loading...</p>
@@ -96,7 +96,7 @@ export default function App() {
   // Show auth error
   if (authError) {
     return (
-      <div>
+      <div className="main-content">
         <h1>Authentication</h1>
         <p>✗ Authentication failed</p>
         <p>{authError}</p>
@@ -115,7 +115,7 @@ export default function App() {
   // Show auth success (briefly before session loads)
   if (authSuccess && !session) {
     return (
-      <div>
+      <div className="main-content">
         <h1>Authentication</h1>
         <p>✓ Authentication successful!</p>
         <p>Loading your account...</p>
@@ -126,7 +126,7 @@ export default function App() {
   // If user is logged in, show welcome screen
   if (session) {
     return (
-      <div>
+      <div className="main-content">
         <h1>Welcome!</h1>
         <p>You are logged in as: {session.user.email}</p>
         <button onClick={handleLogout}>Sign Out</button>
