@@ -85,10 +85,12 @@ export default function App() {
   // Show verification state
   if (verifying) {
     return (
-      <div>
-        <h1>Authentication</h1>
-        <p>Confirming your magic link...</p>
-        <p>Loading...</p>
+      <div className="flex items-center justify-center min-h-screen px-4">
+        <div className="w-full max-w-md text-center space-y-4">
+          <h1 className="text-3xl md:text-4xl font-bold">Authentication</h1>
+          <p className="text-lg">Confirming your magic link...</p>
+          <p className="text-gray-500">Loading...</p>
+        </div>
       </div>
     );
   }
@@ -96,18 +98,21 @@ export default function App() {
   // Show auth error
   if (authError) {
     return (
-      <div>
-        <h1>Authentication</h1>
-        <p>✗ Authentication failed</p>
-        <p>{authError}</p>
-        <button
-          onClick={() => {
-            setAuthError(null);
-            window.history.replaceState({}, document.title, "/");
-          }}
-        >
-          Return to login
-        </button>
+      <div className="flex items-center justify-center min-h-screen px-4">
+        <div className="w-full max-w-md text-center space-y-4">
+          <h1 className="text-3xl md:text-4xl font-bold">Authentication</h1>
+          <p className="text-lg text-red-500">✗ Authentication failed</p>
+          <p className="text-gray-600">{authError}</p>
+          <button
+            onClick={() => {
+              setAuthError(null);
+              window.history.replaceState({}, document.title, "/");
+            }}
+            className="w-full px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+          >
+            Return to login
+          </button>
+        </div>
       </div>
     );
   }
@@ -115,10 +120,12 @@ export default function App() {
   // Show auth success (briefly before session loads)
   if (authSuccess && !session) {
     return (
-      <div>
-        <h1>Authentication</h1>
-        <p>✓ Authentication successful!</p>
-        <p>Loading your account...</p>
+      <div className="flex items-center justify-center min-h-screen px-4">
+        <div className="w-full max-w-md text-center space-y-4">
+          <h1 className="text-3xl md:text-4xl font-bold">Authentication</h1>
+          <p className="text-lg text-green-500">✓ Authentication successful!</p>
+          <p className="text-gray-500">Loading your account...</p>
+        </div>
       </div>
     );
   }
@@ -126,31 +133,46 @@ export default function App() {
   // If user is logged in, show welcome screen
   if (session) {
     return (
-      <div>
-        <h1>Welcome!</h1>
-        <p>You are logged in as: {session.user.email}</p>
-        <button onClick={handleLogout}>Sign Out</button>
+      <div className="flex items-center justify-center min-h-screen px-4">
+        <div className="w-full max-w-md text-center space-y-4">
+          <h1 className="text-3xl md:text-4xl font-bold">Welcome!</h1>
+          <p className="text-lg text-gray-600">You are logged in as: {session.user.email}</p>
+          <button
+            onClick={handleLogout}
+            className="w-full px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+          >
+            Sign Out
+          </button>
+        </div>
       </div>
     );
   }
 
   // Show login form
   return (
-    <div className="main-content">
-      <h1>Login</h1>
-      <p>Sign in via magic link with your email below</p>
-      <form onSubmit={handleLogin}>
-        <input
-          type="email"
-          placeholder="Your email"
-          value={email}
-          required={true}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <button disabled={loading}>
-          {loading ? <span>Loading</span> : <span>Send magic link</span>}
-        </button>
-      </form>
+    <div className="flex items-center justify-center min-h-screen px-4">
+      <div className="w-full max-w-md space-y-6">
+        <div className="text-center space-y-2">
+          <h1 className="text-3xl md:text-4xl font-bold">Login</h1>
+          <p className="text-gray-600">Sign in via magic link with your email below</p>
+        </div>
+        <form onSubmit={handleLogin} className="space-y-4">
+          <input
+            type="email"
+            placeholder="Your email"
+            value={email}
+            required={true}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+          />
+          <button
+            disabled={loading}
+            className="w-full px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-medium"
+          >
+            {loading ? <span>Loading</span> : <span>Send magic link</span>}
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
